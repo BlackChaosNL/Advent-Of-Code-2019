@@ -5,7 +5,7 @@ sub MAIN(
 ) {
   my @oplist = Process($file);
   say PartOne(@oplist);
-  say PartTwo(@oplist);
+  say PartTwo();
 }
 
 sub Process($file) {
@@ -36,17 +36,23 @@ sub PartOne(@oplist) {
   }
 }
 
-sub PartTwo(@oplist) {
-  say @oplist;
-  # my Int $output = 0;
-  # while ($output != 19690720) {
-  #   my Int $tempNoun = (1^..99).rand.floor;
-  #   my Int $tempVerb = (1^..99).rand.floor;
-  #   @oplist[1] = $tempNoun;
-  #   @oplist[2] = $tempVerb;
-  #   $output = PartOne(@oplist);
-  #   if ($output == 19690720) {
-  #     return "noun=" ~ $tempNoun ~ "& verb=" ~ $tempVerb;
-  #   }
-  # }
+sub PartTwo() {
+  my List @noun = ();
+  my List @verb = ();
+  my Int $output = 0;
+  while ($output != 19690720) {
+    my @oplist = Array.new('./input.txt'.IO.lines.split(','));
+    my Int $randNoun = 100.rand.floor;
+    my Int $randVerb = 100.rand.floor;
+    @oplist[1] = ($randNoun ∈ @noun) ?? 100.rand.floor !! $randNoun;
+    @oplist[2] = ($randVerb ∈ @verb) ?? 100.rand.floor !! $randVerb;
+    $output := PartOne(@oplist);
+    if ($output == 19690720) {
+      return "noun=" ~ @oplist[1] ~ "& verb=" ~ @oplist[2];
+    } else {
+      say "It's not " ~ "noun=" ~ @oplist[1] ~ "& verb=" ~ @oplist[2] ~ " which gets an output of " ~ $output;
+      # @noun.push(@oplist[1]);
+      # @verb.push(@oplist[2]);
+    }
+  }
 }
