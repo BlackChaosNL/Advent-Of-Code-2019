@@ -36,6 +36,8 @@ sub PartOne(@oplist) {
   }
 }
 
+
+# TODO: Save the pair to prevent random to test the same pair multiple times
 sub PartTwo() {
   my List @noun = ();
   my List @verb = ();
